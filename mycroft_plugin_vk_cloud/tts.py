@@ -1,16 +1,18 @@
+from mycroft.configuration import Configuration
 from mycroft.tts import TTS, TTSValidator
 from requests import get
 
-_API_URL = "https://voice.mcs.mail.ru/asr"
+_API_URL = "https://voice.mcs.mail.ru/tts"
 
 
 class VkCloudTTSPlugin(TTS):
     def __init__(self, lang, config):
         super(VkCloudTTSPlugin, self).__init__(lang, config,
                                                VkCloudTTSValidator(self), "mp3")
+        config = Configuration.get().get("tts", {}).get("vk", {})
+        self.service_token = config.get("service_token")
+        self.tempo = config.get("tempo", 1.0)
         self.encoder = "mp3"
-        self.service_token = self.config.get("service_token")
-        self.tempo = self.config.get("tempo", 1.0)
 
     def get_tts(self, sentence, wav_file):
         with open(wav_file, "wb") as f:
@@ -46,7 +48,8 @@ class VkCloudTTSValidator(TTSValidator):
         pass
 
     def validate_connection(self):
-        service_token = self.config.get("service_token")
+        config = Configuration.get().get("tts", {}).get("vk", {})
+        service_token = config.get("service_token")
         if service_token is not None:
             headers = {"Authorization": "Bearer {}".format(service_token)}
             r = get(_API_URL, headers=headers)

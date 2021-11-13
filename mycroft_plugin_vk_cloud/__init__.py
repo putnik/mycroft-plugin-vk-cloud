@@ -1,2 +1,2 @@
-from tts import VkCloudTTSPlugin, VkCloudTTSValidator
-from stt import VkCloudSTTPlugin
+from .tts import VkCloudTTSPlugin, VkCloudTTSValidator
+from .stt import VkCloudSTTPlugin

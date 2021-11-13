@@ -6,7 +6,7 @@ TTS_ENTRY_POINT = 'vk = mycroft_plugin_vk_cloud:VkCloudTTSPlugin'
 
 setup(
     name='mycroft-plugin-vk-cloud',
-    version='1.0.0',
+    version='1.0.4',
     description='VK Cloud TTS/STT plugin for Mycroft',
     long_description='file: README.md',
     long_description_content_type='text/markdown',
